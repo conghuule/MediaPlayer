@@ -1,0 +1,50 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Images\add.png" />
+    <None Remove="Images\MONO - Waiting For You %28Album 22 - Track No.10%29.mp4" />
+    <None Remove="Images\next.png" />
+    <None Remove="Images\pause.png" />
+    <None Remove="Images\play.png" />
+    <None Remove="Images\previous.png" />
+    <None Remove="Images\random-active.png" />
+    <None Remove="Images\random.png" />
+    <None Remove="Images\remove.png" />
+    <None Remove="Images\volume.png" />
+    <None Remove="Images\Waiting For You - MONO_ Onionn.mp3" />
+    <None Remove="Images\waiting_for_you.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Images\add.png" />
+    <Resource Include="Images\MONO - Waiting For You (Album 22 - Track No.10).mp4">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\next.png" />
+    <Resource Include="Images\pause.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\play.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\previous.png" />
+    <Resource Include="Images\random-active.png" />
+    <Resource Include="Images\random.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\remove.png" />
+    <Resource Include="Images\volume.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\Waiting For You - MONO_ Onionn.mp3" />
+    <Resource Include="Images\waiting_for_you.png" />
+  </ItemGroup>
+
+</Project>

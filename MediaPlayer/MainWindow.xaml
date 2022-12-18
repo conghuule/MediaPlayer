@@ -1,0 +1,161 @@
+﻿<Window
+    x:Class="MediaPlayer.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:MediaPlayer"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Title="MainWindow"
+    Width="1200"
+    Height="800"
+    mc:Ignorable="d">
+    <Border Padding="20">
+        <DockPanel LastChildFill="True">
+            <!--  Controls  -->
+            <StackPanel
+                Height="80"
+                VerticalAlignment="Center"
+                DockPanel.Dock="Bottom"
+                Orientation="Horizontal">
+                <TextBlock VerticalAlignment="Center" Text="Filename" />
+
+                <StackPanel VerticalAlignment="Center">
+                    <StackPanel
+                        Margin="0,0,0,8"
+                        HorizontalAlignment="Center"
+                        Orientation="Horizontal">
+                        <Image
+                            Width="16"
+                            Height="16"
+                            Margin="8,0"
+                            RenderOptions.BitmapScalingMode="HighQuality"
+                            Source="/Images/previous.png" />
+                        <Image
+                            Width="16"
+                            Height="16"
+                            Margin="8,0"
+                            RenderOptions.BitmapScalingMode="HighQuality"
+                            Source="/Images/play.png" />
+                        <Image
+                            Width="16"
+                            Height="16"
+                            Margin="8,0"
+                            RenderOptions.BitmapScalingMode="HighQuality"
+                            Source="/Images/pause.png" />
+                        <Image
+                            Width="16"
+                            Height="16"
+                            Margin="8,0"
+                            RenderOptions.BitmapScalingMode="HighQuality"
+                            Source="/Images/next.png" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="0:10" />
+                        <Slider
+                            Width="200"
+                            Height="18"
+                            Margin="8,0"
+                            Maximum="100"
+                            Minimum="0"
+                            Value="0" />
+
+                        <TextBlock Text="0:10" />
+                    </StackPanel>
+                </StackPanel>
+
+                <Image
+                    Width="18"
+                    Height="18"
+                    RenderOptions.BitmapScalingMode="HighQuality"
+                    Source="/Images/random.png" />
+                <Image
+                    Width="18"
+                    Height="18"
+                    RenderOptions.BitmapScalingMode="HighQuality"
+                    Source="/Images/random-active.png" />
+
+                <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
+                    <Image
+                        Width="20"
+                        Height="20"
+                        RenderOptions.BitmapScalingMode="HighQuality"
+                        Source="/Images/volume.png" />
+                    <Slider
+                        Width="18"
+                        Height="60"
+                        Margin="8,0"
+                        Maximum="100"
+                        Minimum="0"
+                        Orientation="Vertical"
+                        Value="0" />
+                </StackPanel>
+            </StackPanel>
+
+            <DockPanel LastChildFill="True">
+                <StackPanel Width="300" DockPanel.Dock="Left">
+                    <StackPanel Orientation="Horizontal">
+                        <Button Background="#3b82f6" Style="{StaticResource button}">
+                            <StackPanel Orientation="Horizontal">
+                                <Image
+                                    Width="16"
+                                    Height="16"
+                                    Margin="0,2,0,0"
+                                    RenderOptions.BitmapScalingMode="HighQuality"
+                                    Source="/Images/add.png" />
+                                <TextBlock
+                                    Margin="4,0,0,0"
+                                    FontSize="16"
+                                    Foreground="White"
+                                    Text="Add File" />
+                            </StackPanel>
+                        </Button>
+                        <Button Background="#ef4444" Style="{StaticResource button}">
+                            <StackPanel Orientation="Horizontal">
+                                <Image
+                                    Width="16"
+                                    Height="16"
+                                    Margin="0,2,0,0"
+                                    RenderOptions.BitmapScalingMode="HighQuality"
+                                    Source="/Images/remove.png" />
+                                <TextBlock
+                                    Margin="4,0,0,0"
+                                    FontSize="16"
+                                    Foreground="White"
+                                    Text="Remove" />
+                            </StackPanel>
+                        </Button>
+                    </StackPanel>
+
+                    <TextBlock
+                        Margin="0,8,0,0"
+                        FontSize="16"
+                        FontWeight="Bold"
+                        Foreground="#4b5563"
+                        Text="Playlist" />
+
+                    <!--  Playlist  -->
+                    <ListView Name="playlistListView">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <Image
+                                        Width="40"
+                                        Height="40"
+                                        Source="{Binding Thumbnail}" />
+                                    <StackPanel>
+                                        <TextBlock Text="{Binding Name}" />
+                                        <TextBlock Text="{Binding Author}" />
+                                    </StackPanel>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </StackPanel>
+
+                <StackPanel VerticalAlignment="Center">
+                    <MediaElement LoadedBehavior="Pause" Source="/Images/MONO - Waiting For You (Album 22 - Track No.10).mp4" />
+                </StackPanel>
+            </DockPanel>
+        </DockPanel>
+    </Border>
+</Window>
