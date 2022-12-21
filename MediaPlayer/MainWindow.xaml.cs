@@ -54,6 +54,141 @@ namespace MediaPlayer
                 Name = "Tai vi sao",
                 Author = "MCK",
                 Thumbnail = "/Images/waiting_for_you.png"
+            }); mediaFiles.Add(new MediaFile()
+            {
+                Name = "Tai vi sao",
+                Author = "MCK",
+                Thumbnail = "/Images/waiting_for_you.png"
+            }); mediaFiles.Add(new MediaFile()
+            {
+                Name = "Tai vi sao",
+                Author = "MCK",
+                Thumbnail = "/Images/waiting_for_you.png"
+            }); mediaFiles.Add(new MediaFile()
+            {
+                Name = "Tai vi sao",
+                Author = "MCK",
+                Thumbnail = "/Images/waiting_for_you.png"
+            }); mediaFiles.Add(new MediaFile()
+            {
+                Name = "Tai vi sao",
+                Author = "MCK",
+                Thumbnail = "/Images/waiting_for_you.png"
+            }); mediaFiles.Add(new MediaFile()
+            {
+                Name = "Tai vi sao",
+                Author = "MCK",
+                Thumbnail = "/Images/waiting_for_you.png"
+            }); mediaFiles.Add(new MediaFile()
+            {
+                Name = "Tai vi sao",
+                Author = "MCK",
+                Thumbnail = "/Images/waiting_for_you.png"
+            }); mediaFiles.Add(new MediaFile()
+            {
+                Name = "Tai vi sao",
+                Author = "MCK",
+                Thumbnail = "/Images/waiting_for_you.png"
+            }); mediaFiles.Add(new MediaFile()
+            {
+                Name = "Tai vi sao",
+                Author = "MCK",
+                Thumbnail = "/Images/waiting_for_you.png"
+            }); mediaFiles.Add(new MediaFile()
+            {
+                Name = "Tai vi sao",
+                Author = "MCK",
+                Thumbnail = "/Images/waiting_for_you.png"
+            }); mediaFiles.Add(new MediaFile()
+            {
+                Name = "Tai vi sao",
+                Author = "MCK",
+                Thumbnail = "/Images/waiting_for_you.png"
+            }); mediaFiles.Add(new MediaFile()
+            {
+                Name = "Tai vi sao",
+                Author = "MCK",
+                Thumbnail = "/Images/waiting_for_you.png"
+            }); mediaFiles.Add(new MediaFile()
+            {
+                Name = "Tai vi sao",
+                Author = "MCK",
+                Thumbnail = "/Images/waiting_for_you.png"
+            }); mediaFiles.Add(new MediaFile()
+            {
+                Name = "Tai vi sao",
+                Author = "MCK",
+                Thumbnail = "/Images/waiting_for_you.png"
+            }); mediaFiles.Add(new MediaFile()
+            {
+                Name = "Tai vi sao",
+                Author = "MCK",
+                Thumbnail = "/Images/waiting_for_you.png"
+            }); mediaFiles.Add(new MediaFile()
+            {
+                Name = "Tai vi sao",
+                Author = "MCK",
+                Thumbnail = "/Images/waiting_for_you.png"
+            }); mediaFiles.Add(new MediaFile()
+            {
+                Name = "Tai vi sao",
+                Author = "MCK",
+                Thumbnail = "/Images/waiting_for_you.png"
+            }); mediaFiles.Add(new MediaFile()
+            {
+                Name = "Tai vi sao",
+                Author = "MCK",
+                Thumbnail = "/Images/waiting_for_you.png"
+            }); mediaFiles.Add(new MediaFile()
+            {
+                Name = "Tai vi sao",
+                Author = "MCK",
+                Thumbnail = "/Images/waiting_for_you.png"
+            }); mediaFiles.Add(new MediaFile()
+            {
+                Name = "Tai vi sao",
+                Author = "MCK",
+                Thumbnail = "/Images/waiting_for_you.png"
+            }); mediaFiles.Add(new MediaFile()
+            {
+                Name = "Tai vi sao",
+                Author = "MCK",
+                Thumbnail = "/Images/waiting_for_you.png"
+            }); mediaFiles.Add(new MediaFile()
+            {
+                Name = "Tai vi sao",
+                Author = "MCK",
+                Thumbnail = "/Images/waiting_for_you.png"
+            }); mediaFiles.Add(new MediaFile()
+            {
+                Name = "Tai vi sao",
+                Author = "MCK",
+                Thumbnail = "/Images/waiting_for_you.png"
+            }); mediaFiles.Add(new MediaFile()
+            {
+                Name = "Tai vi sao",
+                Author = "MCK",
+                Thumbnail = "/Images/waiting_for_you.png"
+            }); mediaFiles.Add(new MediaFile()
+            {
+                Name = "Tai vi sao",
+                Author = "MCK",
+                Thumbnail = "/Images/waiting_for_you.png"
+            }); mediaFiles.Add(new MediaFile()
+            {
+                Name = "Tai vi sao",
+                Author = "MCK",
+                Thumbnail = "/Images/waiting_for_you.png"
+            }); mediaFiles.Add(new MediaFile()
+            {
+                Name = "Tai vi sao",
+                Author = "MCK",
+                Thumbnail = "/Images/waiting_for_you.png"
+            }); mediaFiles.Add(new MediaFile()
+            {
+                Name = "Tai vi sao",
+                Author = "MCK",
+                Thumbnail = "/Images/waiting_for_you.png"
             });
 
             playlistListView.ItemsSource = mediaFiles;
