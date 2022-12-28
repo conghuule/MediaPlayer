@@ -9,7 +9,7 @@
     Width="1200"
     Height="800"
     mc:Ignorable="d">
-    <Border Padding="20">
+    <Border Padding="20" Background="#c89666">
         <DockPanel LastChildFill="True">
             <!--  Controls  -->
             <StackPanel
@@ -92,7 +92,12 @@
             </StackPanel>
 
             <DockPanel LastChildFill="True">
-                <StackPanel Width="300" DockPanel.Dock="Left">
+                <!--<Grid Width="480" DockPanel.Dock="Left">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                    </Grid.RowDefinitions>
                     <StackPanel Orientation="Horizontal">
                         <Button Background="#3b82f6" Style="{StaticResource button}">
                             <StackPanel Orientation="Horizontal">
@@ -125,16 +130,15 @@
                             </StackPanel>
                         </Button>
                     </StackPanel>
-
                     <TextBlock
                         Margin="0,8,0,0"
                         FontSize="16"
                         FontWeight="Bold"
                         Foreground="#4b5563"
                         Text="Playlist" />
-
-                    <!--  Playlist  -->
-                    <ListView Name="playlistListView">
+                    -->
+                <!--  Playlist  -->
+                <!--<ListView Name="playlistListView">
                         <ListView.ItemTemplate>
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal">
@@ -149,12 +153,136 @@
                                 </StackPanel>
                             </DataTemplate>
                         </ListView.ItemTemplate>
-                    </ListView>
-                </StackPanel>
+                    </ListView>-->
+                <!--
+                    <Border Grid.Row="1" Padding="20" Background="#EFF2F7" CornerRadius="8">
+                        <Grid Grid.Column="1" >
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"/>
+                                
+                            </Grid.RowDefinitions>
+                            <DataGrid  RowStyle="{DynamicResource DataGridRowStyle1}" ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}" CellStyle="{DynamicResource DataGridCellStyle1}" Name="playlistListView" Style="{DynamicResource DataGridStyle1}" Grid.ColumnSpan="3" Grid.RowSpan="6" >
+                                <DataGrid.Columns>
+                                    <DataGridTemplateColumn Header="Thumbnail" IsReadOnly="True" Width="*">
+                                        <DataGridTemplateColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <StackPanel Orientation="Horizontal">
+                                                    <Image
+                                        Width="40"
+                                        Height="40"
+                                        Source="{Binding Thumbnail}" />
+                                                </StackPanel>
+                                            </DataTemplate>
+                                        </DataGridTemplateColumn.CellTemplate>
+                                    </DataGridTemplateColumn>
+                                    <DataGridTextColumn Header="Name" Binding="{Binding Name}" IsReadOnly="True" Width="*"/>
+                                    <DataGridTextColumn Header="Author" Binding="{Binding Author}" IsReadOnly="True" Width="*"/>
+                                </DataGrid.Columns>
+                            </DataGrid>
+                        </Grid>
+                    </Border>
+                 
+                </Grid>-->
+                <Grid DockPanel.Dock="Left" Width="450">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <StackPanel Orientation="Horizontal">
+                        <Button Background="#3b82f6" Style="{StaticResource button}">
+                            <StackPanel Orientation="Horizontal">
+                                <Image
+                                    Width="16"
+                                    Height="16"
+                                    Margin="0,2,0,0"
+                                    RenderOptions.BitmapScalingMode="HighQuality"
+                                    Source="/Images/add.png" />
+                                <TextBlock
+                                    Margin="4,0,0,0"
+                                    FontSize="16"
+                                    Foreground="White"
+                                    Text="Add File" />
+                            </StackPanel>
+                        </Button>
+                        <Button Background="#ef4444" Style="{StaticResource button}">
+                            <StackPanel Orientation="Horizontal">
+                                <Image
+                                    Width="16"
+                                    Height="16"
+                                    Margin="0,2,0,0"
+                                    RenderOptions.BitmapScalingMode="HighQuality"
+                                    Source="/Images/remove.png" />
+                                <TextBlock
+                                    Margin="4,0,0,0"
+                                    FontSize="16"
+                                    Foreground="White"
+                                    Text="Remove" />
+                            </StackPanel>
+                        </Button>
 
+                    </StackPanel>
+                    <Border Grid.Row="1" Padding="20" Background="#2d545e" CornerRadius="8" Grid.ColumnSpan="2">
+
+                        <Grid Grid.Column="1" >
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+
+                            <StackPanel>
+                                <TextBlock Grid.Row="0" Foreground="#cfcfcf" Text="Play list" FontSize="28" FontWeight="Bold" Margin="0 0 0 16" Grid.ColumnSpan="2"/>
+
+                            </StackPanel>
+
+                            <DataGrid  RowStyle="{DynamicResource DataGridRowStyle1}" ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}" CellStyle="{DynamicResource DataGridCellStyle1}" Name="playlistListView" Style="{DynamicResource DataGridStyle1}" Grid.ColumnSpan="3" Grid.RowSpan="6" >
+                                <DataGrid.Columns>
+                                    <DataGridTemplateColumn Header="Thumbnail" IsReadOnly="True" Width="*" >
+                                        <DataGridTemplateColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <StackPanel Orientation="Horizontal">
+
+                                                    <Image
+                                        Width="40"
+                                        Height="40"
+                                        Source="{Binding Thumbnail}" />
+                                                </StackPanel>
+                                            </DataTemplate>
+                                        </DataGridTemplateColumn.CellTemplate>
+                                    </DataGridTemplateColumn>
+                                    <DataGridTextColumn Foreground="#cfcfcf" Header="Name" Binding="{Binding Name}" IsReadOnly="True" Width="*"/>
+                                    <DataGridTextColumn Foreground="#cfcfcf" Header="Author" Binding="{Binding Author}" IsReadOnly="True" Width="*"/>
+                                </DataGrid.Columns>
+                            </DataGrid>
+
+
+                        </Grid>
+                    </Border>
+                </Grid>
+                <!--
                 <StackPanel VerticalAlignment="Center">
                     <MediaElement LoadedBehavior="Pause" Source="/Images/MONO - Waiting For You (Album 22 - Track No.10).mp4" />
                 </StackPanel>
+                -->
+                <!-- Videos -->
+                <Border DockPanel.Dock="Right" Padding="20"  Margin="10,45,0,0" Background="#12343b" CornerRadius="8">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="auto"/>
+                        </Grid.RowDefinitions>
+                        <StackPanel Grid.Row="0">
+                            <TextBlock Foreground="#cfcfcf" Text="Media" FontSize="28" FontWeight="Bold" Margin="0 0 0 16" Grid.ColumnSpan="2"/>
+                        </StackPanel>
+                        <StackPanel Grid.Row="1" VerticalAlignment="Center">
+                            <MediaElement Source="/Images/MONO - Waiting For You (Album 22 - Track No.10).mp4" LoadedBehavior="Pause" Name="myMediaElement"/>
+                        </StackPanel>
+                        <StackPanel Grid.Row="2">
+                            <TextBlock Text="MONO - Waiting For You (Album 22 - Track No.10).mp4" Foreground="#cfcfcf" FontSize="25" FontWeight="Bold" Margin="0 0 0 5" Grid.ColumnSpan="2"/>
+                            <TextBlock Text="Mono, Onionn" Foreground="#cfcfcf" FontSize="20" FontWeight="Normal" Margin="0 0 0 16" Grid.ColumnSpan="2"/>
+                        </StackPanel>
+                    </Grid>
+                </Border>
             </DockPanel>
         </DockPanel>
     </Border>

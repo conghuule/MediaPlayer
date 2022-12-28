@@ -291,7 +291,7 @@
         <Style x:Key="DataGridColumnHeaderStyle1" TargetType="{x:Type DataGridColumnHeader}">
             <Setter Property="VerticalContentAlignment" Value="Center" />
             <Setter Property="Background" Value="Transparent" />
-            <Setter Property="Foreground" Value="#69717D" />
+            <Setter Property="Foreground" Value="#cfcfcf" />
             <Setter Property="Margin" Value="15,0,15,10" />
             <Setter Property="Template">
                 <Setter.Value>

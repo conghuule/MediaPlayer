@@ -25,7 +25,7 @@
   <ItemGroup>
     <Resource Include="Images\add.png" />
     <Resource Include="Images\MONO - Waiting For You (Album 22 - Track No.10).mp4">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Images\next.png" />
     <Resource Include="Images\pause.png">
