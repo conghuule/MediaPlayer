@@ -138,8 +138,9 @@
                         Foreground="#4b5563"
                         Text="Playlist" />
 
-                    --><!--  Playlist  -->
-                    <!--<ListView Name="playlistListView">
+                    -->
+                <!--  Playlist  -->
+                <!--<ListView Name="playlistListView">
                         <ListView.ItemTemplate>
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal">
@@ -154,7 +155,8 @@
                                 </StackPanel>
                             </DataTemplate>
                         </ListView.ItemTemplate>
-                    </ListView>--><!--
+                    </ListView>-->
+                <!--
                     <Border Grid.Row="1" Padding="20" Background="#EFF2F7" CornerRadius="8">
                         <Grid Grid.Column="1" >
                             <Grid.RowDefinitions>
@@ -191,7 +193,7 @@
                         <RowDefinition Height="*"></RowDefinition>
                     </Grid.RowDefinitions>
                     <StackPanel Orientation="Horizontal">
-                        <Button Background="#3b82f6" Style="{StaticResource button}">
+                        <Button Background="#3b82f6" Style="{StaticResource button}" Click="AddFiles_Click">
                             <StackPanel Orientation="Horizontal">
                                 <Image
                                     Width="16"
@@ -206,7 +208,22 @@
                                     Text="Add File" />
                             </StackPanel>
                         </Button>
-                        <Button Background="#ef4444" Style="{StaticResource button}">
+                        <Button Background="#3b82f6" Style="{StaticResource button}" Click="AddFolder_Click">
+                            <StackPanel Orientation="Horizontal">
+                                <Image
+                                    Width="16"
+                                    Height="16"
+                                    Margin="0,2,0,0"
+                                    RenderOptions.BitmapScalingMode="HighQuality"
+                                    Source="/Images/add.png" />
+                                <TextBlock
+                                    Margin="4,0,0,0"
+                                    FontSize="16"
+                                    Foreground="White"
+                                    Text="Add Folder" />
+                            </StackPanel>
+                        </Button>
+                        <Button Background="#ef4444" Style="{StaticResource button}" Click="RemoveFiles_Click">
                             <StackPanel Orientation="Horizontal">
                                 <Image
                                     Width="16"
@@ -224,19 +241,23 @@
 
                     </StackPanel>
                     <Border Grid.Row="1" Padding="20" Background="#EFF2F7" CornerRadius="8" Grid.ColumnSpan="2">
-                        
+
                         <Grid Grid.Column="1" >
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="153*"/>
+                                <ColumnDefinition Width="67*"/>
+                            </Grid.ColumnDefinitions>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="auto"/>
                                 <RowDefinition Height="*"/>
                             </Grid.RowDefinitions>
-                            
-                            <StackPanel>
+
+                            <StackPanel Grid.ColumnSpan="2">
                                 <TextBlock Grid.Row="0" Foreground="#cfcfcf" Text="Play list" FontSize="28" FontWeight="Bold" Margin="0 0 0 16" Grid.ColumnSpan="2"/>
 
                             </StackPanel>
 
-                            <DataGrid  RowStyle="{DynamicResource DataGridRowStyle1}" ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}" CellStyle="{DynamicResource DataGridCellStyle1}" Name="playlistListView" Style="{DynamicResource DataGridStyle1}" Grid.ColumnSpan="3" Grid.RowSpan="6" >
+                            <DataGrid  RowStyle="{DynamicResource DataGridRowStyle1}" ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}" CellStyle="{DynamicResource DataGridCellStyle1}" Name="playlistListView" Style="{DynamicResource DataGridStyle1}" Grid.ColumnSpan="2" Grid.Row="1" >
                                 <DataGrid.Columns>
                                     <DataGridTemplateColumn Header="Thumbnail" IsReadOnly="True" Width="*" >
                                         <DataGridTemplateColumn.CellTemplate>
@@ -252,6 +273,7 @@
                                         </DataGridTemplateColumn.CellTemplate>
                                     </DataGridTemplateColumn>
                                     <DataGridTextColumn Foreground="#cfcfcf" Header="Name" Binding="{Binding Name}" IsReadOnly="True" Width="*"/>
+                                    <DataGridTextColumn Foreground="#cfcfcf" Header="Length" Binding="{Binding Length}" IsReadOnly="True" Width="*"/>
                                     <DataGridTextColumn Foreground="#cfcfcf" Header="Author" Binding="{Binding Author}" IsReadOnly="True" Width="*"/>
                                 </DataGrid.Columns>
                             </DataGrid>

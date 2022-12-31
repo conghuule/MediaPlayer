@@ -23,6 +23,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="PropertyChanged.Fody" Version="4.1.0" />
+    <PackageReference Include="TagLibSharp" Version="2.3.0" />
+    <PackageReference Include="WindowsAPICodePack-Shell" Version="1.1.1" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Resource Include="Images\add.png" />
     <Resource Include="Images\MONO - Waiting For You (Album 22 - Track No.10).mp4">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
