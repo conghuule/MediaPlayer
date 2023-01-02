@@ -117,7 +117,10 @@
                         <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
                     <StackPanel Orientation="Horizontal">
-                        <Button Background="#3b82f6" Style="{StaticResource button}">
+                        <Button
+                            Background="#3b82f6"
+                            Click="AddFiles_Click"
+                            Style="{StaticResource button}">
                             <StackPanel Orientation="Horizontal">
                                 <Image
                                     Width="16"
@@ -132,7 +135,28 @@
                                     Text="Add File" />
                             </StackPanel>
                         </Button>
-                        <Button Background="#ef4444" Style="{StaticResource button}">
+                        <Button
+                            Background="#3b82f6"
+                            Click="AddFolder_Click"
+                            Style="{StaticResource button}">
+                            <StackPanel Orientation="Horizontal">
+                                <Image
+                                    Width="16"
+                                    Height="16"
+                                    Margin="0,2,0,0"
+                                    RenderOptions.BitmapScalingMode="HighQuality"
+                                    Source="/Images/add.png" />
+                                <TextBlock
+                                    Margin="4,0,0,0"
+                                    FontSize="16"
+                                    Foreground="White"
+                                    Text="Add Folder" />
+                            </StackPanel>
+                        </Button>
+                        <Button
+                            Background="#ef4444"
+                            Click="RemoveFiles_Click"
+                            Style="{StaticResource button}">
                             <StackPanel Orientation="Horizontal">
                                 <Image
                                     Width="16"
