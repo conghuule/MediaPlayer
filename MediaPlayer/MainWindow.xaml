@@ -5,9 +5,11 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:MediaPlayer"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    Title="MainWindow"
+    Title="Media Player"
     Width="1200"
     Height="800"
+    AllowDrop="True"
+    Drop="Window_Drop"
     mc:Ignorable="d">
     <Border Padding="20" Background="#c89666">
         <DockPanel LastChildFill="True">
@@ -24,41 +26,56 @@
                         Margin="0,0,0,8"
                         HorizontalAlignment="Center"
                         Orientation="Horizontal">
-                        <Image
-                            Width="16"
-                            Height="16"
-                            Margin="8,0"
-                            RenderOptions.BitmapScalingMode="HighQuality"
-                            Source="/Images/previous.png" />
-                        <Image
-                            Width="16"
-                            Height="16"
-                            Margin="8,0"
-                            RenderOptions.BitmapScalingMode="HighQuality"
-                            Source="/Images/play.png" />
-                        <Image
-                            Width="16"
-                            Height="16"
-                            Margin="8,0"
-                            RenderOptions.BitmapScalingMode="HighQuality"
-                            Source="/Images/pause.png" />
-                        <Image
-                            Width="16"
-                            Height="16"
-                            Margin="8,0"
-                            RenderOptions.BitmapScalingMode="HighQuality"
-                            Source="/Images/next.png" />
+                        <Button Background="Transparent" BorderThickness="0">
+                            <Image
+                                Width="16"
+                                Height="16"
+                                Margin="8,0"
+                                RenderOptions.BitmapScalingMode="HighQuality"
+                                Source="/Images/previous.png" />
+                        </Button>
+                        <Button
+                            Background="Transparent"
+                            BorderThickness="0"
+                            Click="ButtonPlay_Click">
+                            <Image
+                                Width="16"
+                                Height="16"
+                                Margin="8,0"
+                                RenderOptions.BitmapScalingMode="HighQuality"
+                                Source="/Images/play.png" />
+                        </Button>
+                        <Button
+                            Background="Transparent"
+                            BorderThickness="0"
+                            Click="ButtonPause_Click">
+                            <Image
+                                Width="16"
+                                Height="16"
+                                Margin="8,0"
+                                RenderOptions.BitmapScalingMode="HighQuality"
+                                Source="/Images/pause.png" />
+                        </Button>
+                        <Button Background="Transparent" BorderThickness="0">
+                            <Image
+                                Width="16"
+                                Height="16"
+                                Margin="8,0"
+                                RenderOptions.BitmapScalingMode="HighQuality"
+                                Source="/Images/next.png" />
+                        </Button>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="0:10" />
                         <Slider
+                            Name="Slider_Seek"
                             Width="200"
                             Height="18"
                             Margin="8,0"
                             Maximum="100"
                             Minimum="0"
+                            ValueChanged="slider_seek_ValueChanged"
                             Value="0" />
-
                         <TextBlock Text="0:10" />
                     </StackPanel>
                 </StackPanel>
@@ -81,112 +98,23 @@
                         RenderOptions.BitmapScalingMode="HighQuality"
                         Source="/Images/volume.png" />
                     <Slider
+                        Name="Slider_Volume"
                         Width="18"
                         Height="60"
                         Margin="8,0"
                         Maximum="100"
                         Minimum="0"
                         Orientation="Vertical"
+                        ValueChanged="slider_volume_ValueChanged"
                         Value="0" />
                 </StackPanel>
             </StackPanel>
 
             <DockPanel LastChildFill="True">
-                <!--<Grid Width="480" DockPanel.Dock="Left">
+                <Grid Width="450" DockPanel.Dock="Left">
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="auto"></RowDefinition>
-                        <RowDefinition Height="auto"></RowDefinition>
-                        <RowDefinition Height="*"></RowDefinition>
-                    </Grid.RowDefinitions>
-                    <StackPanel Orientation="Horizontal">
-                        <Button Background="#3b82f6" Style="{StaticResource button}">
-                            <StackPanel Orientation="Horizontal">
-                                <Image
-                                    Width="16"
-                                    Height="16"
-                                    Margin="0,2,0,0"
-                                    RenderOptions.BitmapScalingMode="HighQuality"
-                                    Source="/Images/add.png" />
-                                <TextBlock
-                                    Margin="4,0,0,0"
-                                    FontSize="16"
-                                    Foreground="White"
-                                    Text="Add File" />
-                            </StackPanel>
-                        </Button>
-                        <Button Background="#ef4444" Style="{StaticResource button}">
-                            <StackPanel Orientation="Horizontal">
-                                <Image
-                                    Width="16"
-                                    Height="16"
-                                    Margin="0,2,0,0"
-                                    RenderOptions.BitmapScalingMode="HighQuality"
-                                    Source="/Images/remove.png" />
-                                <TextBlock
-                                    Margin="4,0,0,0"
-                                    FontSize="16"
-                                    Foreground="White"
-                                    Text="Remove" />
-                            </StackPanel>
-                        </Button>
-                    </StackPanel>
-                    <TextBlock
-                        Margin="0,8,0,0"
-                        FontSize="16"
-                        FontWeight="Bold"
-                        Foreground="#4b5563"
-                        Text="Playlist" />
-                    -->
-                <!--  Playlist  -->
-                <!--<ListView Name="playlistListView">
-                        <ListView.ItemTemplate>
-                            <DataTemplate>
-                                <StackPanel Orientation="Horizontal">
-                                    <Image
-                                        Width="40"
-                                        Height="40"
-                                        Source="{Binding Thumbnail}" />
-                                    <StackPanel>
-                                        <TextBlock Text="{Binding Name}" />
-                                        <TextBlock Text="{Binding Author}" />
-                                    </StackPanel>
-                                </StackPanel>
-                            </DataTemplate>
-                        </ListView.ItemTemplate>
-                    </ListView>-->
-                <!--
-                    <Border Grid.Row="1" Padding="20" Background="#EFF2F7" CornerRadius="8">
-                        <Grid Grid.Column="1" >
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="auto"/>
-                                
-                            </Grid.RowDefinitions>
-                            <DataGrid  RowStyle="{DynamicResource DataGridRowStyle1}" ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}" CellStyle="{DynamicResource DataGridCellStyle1}" Name="playlistListView" Style="{DynamicResource DataGridStyle1}" Grid.ColumnSpan="3" Grid.RowSpan="6" >
-                                <DataGrid.Columns>
-                                    <DataGridTemplateColumn Header="Thumbnail" IsReadOnly="True" Width="*">
-                                        <DataGridTemplateColumn.CellTemplate>
-                                            <DataTemplate>
-                                                <StackPanel Orientation="Horizontal">
-                                                    <Image
-                                        Width="40"
-                                        Height="40"
-                                        Source="{Binding Thumbnail}" />
-                                                </StackPanel>
-                                            </DataTemplate>
-                                        </DataGridTemplateColumn.CellTemplate>
-                                    </DataGridTemplateColumn>
-                                    <DataGridTextColumn Header="Name" Binding="{Binding Name}" IsReadOnly="True" Width="*"/>
-                                    <DataGridTextColumn Header="Author" Binding="{Binding Author}" IsReadOnly="True" Width="*"/>
-                                </DataGrid.Columns>
-                            </DataGrid>
-                        </Grid>
-                    </Border>
-                 
-                </Grid>-->
-                <Grid DockPanel.Dock="Left" Width="450">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="auto"></RowDefinition>
-                        <RowDefinition Height="*"></RowDefinition>
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
                     <StackPanel Orientation="Horizontal">
                         <Button Background="#3b82f6" Style="{StaticResource button}">
@@ -221,36 +149,69 @@
                         </Button>
 
                     </StackPanel>
-                    <Border Grid.Row="1" Padding="20" Background="#2d545e" CornerRadius="8" Grid.ColumnSpan="2">
+                    <Border
+                        Grid.Row="1"
+                        Grid.ColumnSpan="2"
+                        Padding="20"
+                        Background="#2d545e"
+                        CornerRadius="8">
 
-                        <Grid Grid.Column="1" >
+                        <Grid Grid.Column="1">
                             <Grid.RowDefinitions>
-                                <RowDefinition Height="auto"/>
-                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="auto" />
+                                <RowDefinition Height="*" />
                             </Grid.RowDefinitions>
 
                             <StackPanel>
-                                <TextBlock Grid.Row="0" Foreground="#cfcfcf" Text="Play list" FontSize="28" FontWeight="Bold" Margin="0 0 0 16" Grid.ColumnSpan="2"/>
+                                <TextBlock
+                                    Grid.Row="0"
+                                    Grid.ColumnSpan="2"
+                                    Margin="0,0,0,16"
+                                    FontSize="28"
+                                    FontWeight="Bold"
+                                    Foreground="#cfcfcf"
+                                    Text="Play list" />
 
                             </StackPanel>
 
-                            <DataGrid  RowStyle="{DynamicResource DataGridRowStyle1}" ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}" CellStyle="{DynamicResource DataGridCellStyle1}" Name="playlistListView" Style="{DynamicResource DataGridStyle1}" Grid.ColumnSpan="3" Grid.RowSpan="6" >
+                            <DataGrid
+                                Name="playlistListView"
+                                Grid.RowSpan="6"
+                                Grid.ColumnSpan="3"
+                                CellStyle="{DynamicResource DataGridCellStyle1}"
+                                ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}"
+                                MouseDoubleClick="playlistListView_MouseDoubleClick"
+                                RowStyle="{DynamicResource DataGridRowStyle1}"
+                                Style="{DynamicResource DataGridStyle1}">
                                 <DataGrid.Columns>
-                                    <DataGridTemplateColumn Header="Thumbnail" IsReadOnly="True" Width="*" >
+                                    <DataGridTemplateColumn
+                                        Width="*"
+                                        Header="Thumbnail"
+                                        IsReadOnly="True">
                                         <DataGridTemplateColumn.CellTemplate>
                                             <DataTemplate>
                                                 <StackPanel Orientation="Horizontal">
 
                                                     <Image
-                                        Width="40"
-                                        Height="40"
-                                        Source="{Binding Thumbnail}" />
+                                                        Width="40"
+                                                        Height="40"
+                                                        Source="{Binding Thumbnail}" />
                                                 </StackPanel>
                                             </DataTemplate>
                                         </DataGridTemplateColumn.CellTemplate>
                                     </DataGridTemplateColumn>
-                                    <DataGridTextColumn Foreground="#cfcfcf" Header="Name" Binding="{Binding Name}" IsReadOnly="True" Width="*"/>
-                                    <DataGridTextColumn Foreground="#cfcfcf" Header="Author" Binding="{Binding Author}" IsReadOnly="True" Width="*"/>
+                                    <DataGridTextColumn
+                                        Width="*"
+                                        Binding="{Binding Name}"
+                                        Foreground="#cfcfcf"
+                                        Header="Name"
+                                        IsReadOnly="True" />
+                                    <DataGridTextColumn
+                                        Width="*"
+                                        Binding="{Binding Author}"
+                                        Foreground="#cfcfcf"
+                                        Header="Author"
+                                        IsReadOnly="True" />
                                 </DataGrid.Columns>
                             </DataGrid>
 
@@ -258,28 +219,50 @@
                         </Grid>
                     </Border>
                 </Grid>
-                <!--
-                <StackPanel VerticalAlignment="Center">
-                    <MediaElement LoadedBehavior="Pause" Source="/Images/MONO - Waiting For You (Album 22 - Track No.10).mp4" />
-                </StackPanel>
-                -->
-                <!-- Videos -->
-                <Border DockPanel.Dock="Right" Padding="20"  Margin="10,45,0,0" Background="#12343b" CornerRadius="8">
+                <!--  Videos  -->
+                <Border
+                    Margin="10,45,0,0"
+                    Padding="20"
+                    Background="#12343b"
+                    CornerRadius="8"
+                    DockPanel.Dock="Right">
                     <Grid>
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="auto"/>
-                            <RowDefinition Height="*"/>
-                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="auto" />
                         </Grid.RowDefinitions>
                         <StackPanel Grid.Row="0">
-                            <TextBlock Foreground="#cfcfcf" Text="Media" FontSize="28" FontWeight="Bold" Margin="0 0 0 16" Grid.ColumnSpan="2"/>
+                            <TextBlock
+                                Grid.ColumnSpan="2"
+                                Margin="0,0,0,16"
+                                FontSize="28"
+                                FontWeight="Bold"
+                                Foreground="#cfcfcf"
+                                Text="Media" />
                         </StackPanel>
                         <StackPanel Grid.Row="1" VerticalAlignment="Center">
-                            <MediaElement Source="/Images/MONO - Waiting For You (Album 22 - Track No.10).mp4" LoadedBehavior="Pause" Name="myMediaElement"/>
+                            <MediaElement
+                                Name="MediaPlayerEl"
+                                LoadedBehavior="Pause"
+                                MediaOpened="MediaPlayerEl_MediaOpened"
+                                Source="/Images/MONO - Waiting For You (Album 22 - Track No.10).mp4" />
                         </StackPanel>
                         <StackPanel Grid.Row="2">
-                            <TextBlock Text="MONO - Waiting For You (Album 22 - Track No.10).mp4" Foreground="#cfcfcf" FontSize="25" FontWeight="Bold" Margin="0 0 0 5" Grid.ColumnSpan="2"/>
-                            <TextBlock Text="Mono, Onionn" Foreground="#cfcfcf" FontSize="20" FontWeight="Normal" Margin="0 0 0 16" Grid.ColumnSpan="2"/>
+                            <TextBlock
+                                Grid.ColumnSpan="2"
+                                Margin="0,0,0,5"
+                                FontSize="25"
+                                FontWeight="Bold"
+                                Foreground="#cfcfcf"
+                                Text="MONO - Waiting For You (Album 22 - Track No.10).mp4" />
+                            <TextBlock
+                                Grid.ColumnSpan="2"
+                                Margin="0,0,0,16"
+                                FontSize="20"
+                                FontWeight="Normal"
+                                Foreground="#cfcfcf"
+                                Text="Mono, Onionn" />
                         </StackPanel>
                     </Grid>
                 </Border>
