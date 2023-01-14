@@ -19,6 +19,9 @@ using System.ComponentModel;
 using System.Collections.ObjectModel;
 
 using System.Windows.Threading;
+using MediaPlayer.Models;
+using System.Configuration;
+
 namespace MediaPlayer
 {
     /// <summary>
@@ -36,10 +39,8 @@ namespace MediaPlayer
             public event PropertyChangedEventHandler? PropertyChanged;
 
             public string Name { get; set; }
-            public string Author { get; set; }
-            public string Length { get; set; }
+            //public string Length { get; set; }
             public string Path { get; set; }
-            public dynamic Thumbnail { get; set; }
         }
 
         private List<string> _fileAddedList = new List<string>();
@@ -71,7 +72,26 @@ namespace MediaPlayer
                 }
             }
 
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
             playlistListView.ItemsSource = mediaFiles;
+
+
+            string? playlist = ConfigurationManager.AppSettings["Playlist"];
+            if (playlist != null && playlist != "")
+            {
+                var lastFiles = playlist.Split("||", StringSplitOptions.None);
+                foreach(var lastFile in lastFiles )
+                {
+                    MediaFile media = new MediaFile();
+                    var info = lastFile.Split(",,", StringSplitOptions.None);
+                    media.Name = info[0];
+                    media.Path = info[1];
+                    mediaFiles.Add(media);
+                }
+            }
         }
 
         private void MediaFiles_CollectionChanged(object? sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
@@ -96,29 +116,17 @@ namespace MediaPlayer
                         string filename = System.IO.Path.GetFileName(path);
                         TagLib.File f = TagLib.File.Create(path);
 
-                        dynamic imgData;
                         if (f.Tag.Pictures.Length != 0)
                         {
                             MemoryStream ms = new MemoryStream(f.Tag.Pictures[0].Data.Data);
                             ms.Seek(0, SeekOrigin.Begin);
-                            imgData = new BitmapImage();
-                            imgData.BeginInit();
-                            imgData.StreamSource = ms;
-                            imgData.EndInit();
-                        }
-                        else
-                        {
-                            //Default thumbnail
-                            imgData = "/Images/waiting_for_you.png";
                         }
 
                         MediaFile file = new MediaFile()
                         {
                             Name = f.Tag.Title != null ? f.Tag.Title : filename,
-                            Author = f.Tag.FirstArtist != null ? f.Tag.FirstArtist : "Unknown",
-                            Length = f.Tag.Length != null ? f.Tag.Length : "Unknown",
+                            //Length = f.Tag.Length != null ? f.Tag.Length : "Unknown",
                             Path = path,
-                            Thumbnail = imgData,
                         };
 
                         mediaFiles.Add(file);
@@ -196,29 +204,17 @@ namespace MediaPlayer
                         string filename = Path.GetFileName(path);
                         TagLib.File f = TagLib.File.Create(path);
 
-                        dynamic imgData;
                         if (f.Tag.Pictures.Length != 0)
                         {
                             MemoryStream ms = new MemoryStream(f.Tag.Pictures[0].Data.Data);
                             ms.Seek(0, SeekOrigin.Begin);
-                            imgData = new BitmapImage();
-                            imgData.BeginInit();
-                            imgData.StreamSource = ms;
-                            imgData.EndInit();
-                        }
-                        else
-                        {
-                            //Default thumbnail
-                            imgData = "/Images/waiting_for_you.png";
                         }
 
                         MediaFile file = new MediaFile()
                         {
                             Name = f.Tag.Title != null ? f.Tag.Title : filename,
-                            Author = f.Tag.FirstArtist != null ? f.Tag.FirstArtist : "Unknown",
-                            Length = f.Tag.Length != null ? f.Tag.Length : "Unknown",
+                            //Length = f.Tag.Length != null ? f.Tag.Length : "Unknown",
                             Path = path,
-                            Thumbnail = imgData,
                         };
 
                         mediaFiles.Add(file);
@@ -238,7 +234,21 @@ namespace MediaPlayer
 
         private void SavePlaylistClick(object sender, RoutedEventArgs e)
         {
-            
+            string playlist = "";
+            for(int i = 0; i < mediaFiles.Count; i++)
+            {
+                playlist += $"{mediaFiles[i].Name},,{mediaFiles[i].Path}";
+                if(i != mediaFiles.Count - 1)
+                {
+                    playlist += "||";
+                }
+            }
+            var configFile = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+            var setttings = configFile.AppSettings.Settings;
+            setttings["Playlist"].Value = playlist;
+            configFile.Save(ConfigurationSaveMode.Minimal);
+
+            MessageBox.Show("Save playlist successfully", "", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
         private void playlistListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
