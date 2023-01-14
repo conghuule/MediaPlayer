@@ -23,7 +23,9 @@
                     Name="fileName"
                     Width="240"
                     VerticalAlignment="Center"
-                    DockPanel.Dock="Left" />
+                    DockPanel.Dock="Left"
+                    FontSize="20"
+                    TextWrapping="Wrap" />
 
                 <StackPanel VerticalAlignment="Center" DockPanel.Dock="Right">
                     <Slider
@@ -191,7 +193,10 @@
                                     Text="Remove" />
                             </StackPanel>
                         </Button>
-                        <Button Background="#3b82f6" Style="{StaticResource button}" Click="SavePlaylistClick">
+                        <Button
+                            Background="#3b82f6"
+                            Click="SavePlaylistClick"
+                            Style="{StaticResource button}">
                             <StackPanel Orientation="Horizontal">
                                 <Image
                                     Width="16"
@@ -232,48 +237,18 @@
 
                             </StackPanel>
 
-                            <DataGrid
+                            <ListView
                                 Name="playlistListView"
-                                Grid.RowSpan="6"
-                                Grid.ColumnSpan="3"
-                                CellStyle="{DynamicResource DataGridCellStyle1}"
-                                ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}"
-                                MouseDoubleClick="playlistListView_MouseDoubleClick"
-                                RowStyle="{DynamicResource DataGridRowStyle1}"
-                                Style="{DynamicResource DataGridStyle1}">
-                                <DataGrid.Columns>
-                                    <DataGridTemplateColumn
-                                        Width="*"
-                                        Header="Thumbnail"
-                                        IsReadOnly="True">
-                                        <DataGridTemplateColumn.CellTemplate>
-                                            <DataTemplate>
-                                                <StackPanel Orientation="Horizontal">
-
-                                                    <Image
-                                                        Width="40"
-                                                        Height="40"
-                                                        Source="{Binding Thumbnail}" />
-                                                </StackPanel>
-                                            </DataTemplate>
-                                        </DataGridTemplateColumn.CellTemplate>
-                                    </DataGridTemplateColumn>
-                                    <DataGridTextColumn
-                                        Width="*"
-                                        Binding="{Binding Name}"
-                                        Foreground="#cfcfcf"
-                                        Header="Name"
-                                        IsReadOnly="True" />
-                                    <DataGridTextColumn
-                                        Width="*"
-                                        Binding="{Binding Author}"
-                                        Foreground="#cfcfcf"
-                                        Header="Author"
-                                        IsReadOnly="True" />
-                                </DataGrid.Columns>
-                            </DataGrid>
-
-
+                                Grid.Row="1"
+                                MouseDoubleClick="playlistListView_MouseDoubleClick">
+                                <ListView.ItemTemplate>
+                                    <DataTemplate>
+                                        <Border>
+                                            <TextBlock Padding="4,16" Text="{Binding Name}" />
+                                        </Border>
+                                    </DataTemplate>
+                                </ListView.ItemTemplate>
+                            </ListView>
                         </Grid>
                     </Border>
                 </Grid>
