@@ -17,6 +17,7 @@
     <None Remove="Images\random-active.png" />
     <None Remove="Images\random.png" />
     <None Remove="Images\remove.png" />
+    <None Remove="Images\save.png" />
     <None Remove="Images\volume.png" />
     <None Remove="Images\Waiting For You - MONO_ Onionn.mp3" />
     <None Remove="Images\waiting_for_you.png" />
@@ -46,6 +47,7 @@
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Images\remove.png" />
+    <Resource Include="Images\save.png" />
     <Resource Include="Images\volume.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>

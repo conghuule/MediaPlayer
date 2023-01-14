@@ -14,20 +14,44 @@
     <Border Padding="20" Background="#c89666">
         <DockPanel LastChildFill="True">
             <!--  Controls  -->
-            <StackPanel
+            <DockPanel
                 Height="80"
-                VerticalAlignment="Center"
-                HorizontalAlignment="Center"
+                Margin="20,0"
                 DockPanel.Dock="Bottom"
-                Orientation="Horizontal">
-                <TextBlock VerticalAlignment="Center" Text="Filename" />
+                LastChildFill="True">
+                <TextBlock
+                    Name="fileName"
+                    Width="240"
+                    VerticalAlignment="Center"
+                    DockPanel.Dock="Left" />
 
-                <StackPanel VerticalAlignment="Center">
+                <StackPanel VerticalAlignment="Center" DockPanel.Dock="Right">
+                    <Slider
+                        Name="Slider_Volume"
+                        Margin="8,0"
+                        Maximum="100"
+                        Minimum="0"
+                        Style="{StaticResource Horizontal_Slider}"
+                        ValueChanged="slider_volume_ValueChanged"
+                        Value="0" />
+                    <Image
+                        Width="20"
+                        Height="20"
+                        RenderOptions.BitmapScalingMode="HighQuality"
+                        Source="/Images/volume.png" />
+                </StackPanel>
+
+                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
                     <StackPanel
                         Margin="0,0,0,8"
                         HorizontalAlignment="Center"
                         Orientation="Horizontal">
-                        <Button Name="prevButton" Background="Transparent" BorderThickness="0" Click="ButtonPrev_Click">
+                        <Button
+                            Name="prevButton"
+                            Background="Transparent"
+                            BorderThickness="0"
+                            Click="ButtonPrev_Click"
+                            Cursor="Hand">
                             <Image
                                 Width="16"
                                 Height="16"
@@ -36,10 +60,11 @@
                                 Source="/Images/previous.png" />
                         </Button>
                         <Button
+                            Name="playButton"
                             Background="Transparent"
                             BorderThickness="0"
-                            Name="playButton"
-                            Click="ButtonPlay_Click">
+                            Click="ButtonPlay_Click"
+                            Cursor="Hand">
                             <Image
                                 Width="16"
                                 Height="16"
@@ -51,8 +76,9 @@
                             Name="pauseButton"
                             Background="Transparent"
                             BorderThickness="0"
-                            Visibility="Collapsed"
-                            Click="ButtonPause_Click">
+                            Click="ButtonPause_Click"
+                            Cursor="Hand"
+                            Visibility="Collapsed">
                             <Image
                                 Width="16"
                                 Height="16"
@@ -60,7 +86,12 @@
                                 RenderOptions.BitmapScalingMode="HighQuality"
                                 Source="/Images/pause.png" />
                         </Button>
-                        <Button Name="nextButton" Background="Transparent" BorderThickness="0" Click="ButtonNext_Click">
+                        <Button
+                            Name="nextButton"
+                            Background="Transparent"
+                            BorderThickness="0"
+                            Click="ButtonNext_Click"
+                            Cursor="Hand">
                             <Image
                                 Width="16"
                                 Height="16"
@@ -68,53 +99,36 @@
                                 RenderOptions.BitmapScalingMode="HighQuality"
                                 Source="/Images/next.png" />
                         </Button>
+                        <Button
+                            Background="Transparent"
+                            BorderThickness="0"
+                            Click="ButtonSuffle_Click"
+                            Cursor="Hand">
+                            <Image
+                                Name="suffleIcon"
+                                Width="16"
+                                Height="16"
+                                Margin="8,0"
+                                RenderOptions.BitmapScalingMode="HighQuality"
+                                Source="/Images/random.png" />
+                        </Button>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="0:10" />
+                        <TextBlock Margin="0,0,10,0" Text="0:10" />
                         <Slider
                             Name="Slider_Seek"
-                            Width="200"
+                            Width="600"
                             Height="18"
                             Margin="8,0"
                             Maximum="100"
                             Minimum="0"
+                            Style="{StaticResource Horizontal_Slider}"
                             ValueChanged="slider_seek_ValueChanged"
                             Value="0" />
-                        <TextBlock Text="0:10" />
+                        <TextBlock Margin="10,0,0,0" Text="0:10" />
                     </StackPanel>
                 </StackPanel>
-
-                <Button 
-                    Width="18"
-                    Height="18"
-                    Margin="10"
-                    Background="Transparent"
-                    BorderThickness="0"
-                    Click="ButtonSuffle_Click">
-                    <Image
-                        Name="suffleIcon"
-                        RenderOptions.BitmapScalingMode="HighQuality"
-                        Source="/Images/random.png" />
-                </Button>
-
-                <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
-                    <Image
-                        Width="20"
-                        Height="20"
-                        RenderOptions.BitmapScalingMode="HighQuality"
-                        Source="/Images/volume.png" />
-                    <Slider
-                        Name="Slider_Volume"
-                        Width="18"
-                        Height="60"
-                        Margin="8,0"
-                        Maximum="100"
-                        Minimum="0"
-                        Orientation="Vertical"
-                        ValueChanged="slider_volume_ValueChanged"
-                        Value="0" />
-                </StackPanel>
-            </StackPanel>
+            </DockPanel>
 
             <DockPanel LastChildFill="True">
                 <Grid Width="450" DockPanel.Dock="Left">
@@ -177,7 +191,21 @@
                                     Text="Remove" />
                             </StackPanel>
                         </Button>
-
+                        <Button Background="#3b82f6" Style="{StaticResource button}" Click="SavePlaylistClick">
+                            <StackPanel Orientation="Horizontal">
+                                <Image
+                                    Width="16"
+                                    Height="16"
+                                    Margin="0,2,0,0"
+                                    RenderOptions.BitmapScalingMode="HighQuality"
+                                    Source="/Images/save.png" />
+                                <TextBlock
+                                    Margin="4,0,0,0"
+                                    FontSize="16"
+                                    Foreground="White"
+                                    Text="Save" />
+                            </StackPanel>
+                        </Button>
                     </StackPanel>
                     <Border
                         Grid.Row="1"
@@ -200,7 +228,7 @@
                                     FontSize="28"
                                     FontWeight="Bold"
                                     Foreground="#cfcfcf"
-                                    Text="Play list" />
+                                    Text="Playlist" />
 
                             </StackPanel>
 
@@ -212,7 +240,7 @@
                                 ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}"
                                 MouseDoubleClick="playlistListView_MouseDoubleClick"
                                 RowStyle="{DynamicResource DataGridRowStyle1}"
-                                Style="{DynamicResource DataGridStyle1}" >
+                                Style="{DynamicResource DataGridStyle1}">
                                 <DataGrid.Columns>
                                     <DataGridTemplateColumn
                                         Width="*"
@@ -275,25 +303,17 @@
                             <MediaElement
                                 Name="MediaPlayerEl"
                                 LoadedBehavior="Pause"
-                                MediaOpened="MediaPlayerEl_MediaOpened"
                                 MediaEnded="media_MediaEnded"
+                                MediaOpened="MediaPlayerEl_MediaOpened"
                                 Source="/Images/MONO - Waiting For You (Album 22 - Track No.10).mp4" />
                         </StackPanel>
                         <StackPanel Grid.Row="2">
                             <TextBlock
-                                Grid.ColumnSpan="2"
+                                Name="mediaName"
                                 Margin="0,0,0,5"
                                 FontSize="25"
                                 FontWeight="Bold"
-                                Foreground="#cfcfcf"
-                                Text="MONO - Waiting For You (Album 22 - Track No.10).mp4" />
-                            <TextBlock
-                                Grid.ColumnSpan="2"
-                                Margin="0,0,0,16"
-                                FontSize="20"
-                                FontWeight="Normal"
-                                Foreground="#cfcfcf"
-                                Text="Mono, Onionn" />
+                                Foreground="#cfcfcf" />
                         </StackPanel>
                     </Grid>
                 </Border>

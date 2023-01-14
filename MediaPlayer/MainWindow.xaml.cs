@@ -236,9 +236,23 @@ namespace MediaPlayer
             }
         }
 
+        private void SavePlaylistClick(object sender, RoutedEventArgs e)
+        {
+            
+        }
+
         private void playlistListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
+            if (playlistListView.Items.Count == 0)
+            {
+                return;
+            }
             int id = playlistListView.SelectedIndex;
+
+            int lastIndex = mediaFiles[id].Name.LastIndexOf('.');
+            string name = mediaFiles[id].Name.Substring(0, lastIndex);
+            fileName.Text = name;
+            mediaName.Text = name;
 
             playMedia(id);
         }
