@@ -17,6 +17,7 @@
             <StackPanel
                 Height="80"
                 VerticalAlignment="Center"
+                HorizontalAlignment="Center"
                 DockPanel.Dock="Bottom"
                 Orientation="Horizontal">
                 <TextBlock VerticalAlignment="Center" Text="Filename" />
@@ -26,7 +27,7 @@
                         Margin="0,0,0,8"
                         HorizontalAlignment="Center"
                         Orientation="Horizontal">
-                        <Button Background="Transparent" BorderThickness="0">
+                        <Button Name="prevButton" Background="Transparent" BorderThickness="0" Click="ButtonPrev_Click">
                             <Image
                                 Width="16"
                                 Height="16"
@@ -37,6 +38,7 @@
                         <Button
                             Background="Transparent"
                             BorderThickness="0"
+                            Name="playButton"
                             Click="ButtonPlay_Click">
                             <Image
                                 Width="16"
@@ -46,8 +48,10 @@
                                 Source="/Images/play.png" />
                         </Button>
                         <Button
+                            Name="pauseButton"
                             Background="Transparent"
                             BorderThickness="0"
+                            Visibility="Collapsed"
                             Click="ButtonPause_Click">
                             <Image
                                 Width="16"
@@ -56,7 +60,7 @@
                                 RenderOptions.BitmapScalingMode="HighQuality"
                                 Source="/Images/pause.png" />
                         </Button>
-                        <Button Background="Transparent" BorderThickness="0">
+                        <Button Name="nextButton" Background="Transparent" BorderThickness="0" Click="ButtonNext_Click">
                             <Image
                                 Width="16"
                                 Height="16"
@@ -80,16 +84,18 @@
                     </StackPanel>
                 </StackPanel>
 
-                <Image
+                <Button 
                     Width="18"
                     Height="18"
-                    RenderOptions.BitmapScalingMode="HighQuality"
-                    Source="/Images/random.png" />
-                <Image
-                    Width="18"
-                    Height="18"
-                    RenderOptions.BitmapScalingMode="HighQuality"
-                    Source="/Images/random-active.png" />
+                    Margin="10"
+                    Background="Transparent"
+                    BorderThickness="0"
+                    Click="ButtonSuffle_Click">
+                    <Image
+                        Name="suffleIcon"
+                        RenderOptions.BitmapScalingMode="HighQuality"
+                        Source="/Images/random.png" />
+                </Button>
 
                 <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
                     <Image
@@ -206,7 +212,7 @@
                                 ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}"
                                 MouseDoubleClick="playlistListView_MouseDoubleClick"
                                 RowStyle="{DynamicResource DataGridRowStyle1}"
-                                Style="{DynamicResource DataGridStyle1}">
+                                Style="{DynamicResource DataGridStyle1}" >
                                 <DataGrid.Columns>
                                     <DataGridTemplateColumn
                                         Width="*"
@@ -270,6 +276,7 @@
                                 Name="MediaPlayerEl"
                                 LoadedBehavior="Pause"
                                 MediaOpened="MediaPlayerEl_MediaOpened"
+                                MediaEnded="media_MediaEnded"
                                 Source="/Images/MONO - Waiting For You (Album 22 - Track No.10).mp4" />
                         </StackPanel>
                         <StackPanel Grid.Row="2">

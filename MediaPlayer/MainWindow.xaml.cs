@@ -27,6 +27,10 @@ namespace MediaPlayer
     public partial class MainWindow : Window
     {
         DispatcherTimer timer;
+        private int currentIndex = 0;
+        private bool isSuffle = false;
+        private static Random rng = new Random();
+
         class MediaFile : INotifyPropertyChanged
         {
             public event PropertyChangedEventHandler? PropertyChanged;
@@ -45,6 +49,9 @@ namespace MediaPlayer
         {
             InitializeComponent();
 
+            setButtonState();
+
+            mediaFiles.CollectionChanged += MediaFiles_CollectionChanged;
 
             timer = new DispatcherTimer();
             timer.Interval = TimeSpan.FromMilliseconds(500);
@@ -52,9 +59,24 @@ namespace MediaPlayer
             void timer_Tick(object sender, EventArgs e)
             {
                 Slider_Seek.Value = MediaPlayerEl.Position.TotalSeconds;
+                if (IsPlaying())
+                {
+                    playButton.Visibility = Visibility.Collapsed;
+                    pauseButton.Visibility = Visibility.Visible;
+                }
+                else
+                {
+                    playButton.Visibility = Visibility.Visible;
+                    pauseButton.Visibility = Visibility.Collapsed;
+                }
             }
 
             playlistListView.ItemsSource = mediaFiles;
+        }
+
+        private void MediaFiles_CollectionChanged(object? sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        {
+            setButtonState();
         }
 
         private void AddFiles_Click(object sender, RoutedEventArgs e)
@@ -217,45 +239,46 @@ namespace MediaPlayer
         private void playlistListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             int id = playlistListView.SelectedIndex;
-            MediaPlayerEl.Source = new Uri(mediaFiles[id].Path, UriKind.Relative);
-            MediaPlayerEl.LoadedBehavior = MediaState.Manual;
-            MediaPlayerEl.UnloadedBehavior = MediaState.Manual;
-            MediaPlayerEl.Volume = (double)Slider_Volume.Value;
-            MediaPlayerEl.Play();
+
+            playMedia(id);
         }
-
-        //private void ButtonPrevious_Click(object sender, RoutedEventArgs e)
-        //{
-
-        //}
 
         private void ButtonPlay_Click(object sender, RoutedEventArgs e)
         {
-            MediaPlayerEl.Play();
+            MediaPlayerEl?.Play();
         }
 
         private void ButtonPause_Click(object sender, RoutedEventArgs e)
         {
-            MediaPlayerEl.Pause();
+            MediaPlayerEl?.Pause();
+        }
+
+        private void ButtonPrev_Click(object sender, RoutedEventArgs e)
+        {
+            playMedia(currentIndex - 1);
+        }
+
+        private void ButtonNext_Click(object sender, RoutedEventArgs e)
+        {
+            playMedia(currentIndex + 1);
         }
 
         private void slider_volume_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
-            MediaPlayerEl.Volume = (double)Slider_Volume.Value;
+            MediaPlayerEl.Volume = (double)Slider_Volume.Value / 100;
         }
 
         private void slider_seek_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
             MediaPlayerEl.Position = TimeSpan.FromSeconds(Slider_Seek.Value);
         }
-
         private void Window_Drop(object sender, DragEventArgs e)
         {
             string fileName = (string)((DataObject)e.Data).GetFileDropList()[0];
             MediaPlayerEl.Source = new Uri(fileName);
             MediaPlayerEl.LoadedBehavior = MediaState.Manual;
             MediaPlayerEl.UnloadedBehavior = MediaState.Manual;
-            MediaPlayerEl.Volume = (double)Slider_Volume.Value;
+            MediaPlayerEl.Volume = (double)Slider_Volume.Value / 100;
             MediaPlayerEl.Play();
         }
 
@@ -266,5 +289,85 @@ namespace MediaPlayer
             timer.Start();
         }
 
+        bool IsPlaying()
+        {
+            var pos1 = MediaPlayerEl.Position;
+            System.Threading.Thread.Sleep(1);
+            var pos2 = MediaPlayerEl.Position;
+
+            return pos2 != pos1;
+        }
+
+        void playMedia(int id)
+        {
+            MediaPlayerEl.Source = new Uri(mediaFiles[id].Path, UriKind.Relative);
+            MediaPlayerEl.LoadedBehavior = MediaState.Manual;
+            MediaPlayerEl.UnloadedBehavior = MediaState.Manual;
+            MediaPlayerEl.Volume = (double)Slider_Volume.Value / 100;
+            MediaPlayerEl.Play();
+
+            currentIndex = id;
+            playlistListView.SelectedIndex = currentIndex;
+            setButtonState();
+        }
+
+        void setButtonState()
+        {
+            if (mediaFiles.Count() == 0)
+            {
+                playButton.IsEnabled = false;
+            }
+            else
+            {
+                playButton.IsEnabled = true;
+            }
+
+            if (currentIndex <= 0)
+            {
+                prevButton.IsEnabled = false;
+            }
+            else
+            {
+                prevButton.IsEnabled = true;
+            }
+
+            if (currentIndex >= mediaFiles.Count() - 1)
+            {
+                nextButton.IsEnabled = false;
+            }
+            else
+            {
+                nextButton.IsEnabled = true;
+            }
+        }
+
+        private void media_MediaEnded(object sender, RoutedEventArgs e)
+        {
+            if (currentIndex >= mediaFiles.Count() - 1)
+            {
+                return;
+            }
+
+            playMedia(currentIndex + 1);
+        }
+
+        private void ButtonSuffle_Click(object sender, RoutedEventArgs e)
+        {
+            isSuffle = !isSuffle;
+            if (!isSuffle)
+            {
+                var uriSource = new Uri(@"/Images/random.png", UriKind.Relative);
+                suffleIcon.Source = new BitmapImage(uriSource);
+                playlistListView.ItemsSource = mediaFiles;
+            }
+            else
+            {
+                var uriSource = new Uri(@"/Images/random-active.png", UriKind.Relative);
+                suffleIcon.Source = new BitmapImage(uriSource);
+                playlistListView.ItemsSource = mediaFiles.OrderBy(a => rng.Next()).ToList();
+            }
+            currentIndex = playlistListView.SelectedIndex;
+            setButtonState();
+        }
     }
 } 
