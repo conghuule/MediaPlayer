@@ -31,21 +31,23 @@ namespace MediaPlayer
     public partial class MainWindow : Window
     {
         DispatcherTimer timer;
-        private int currentIndex = 0;
+        private int currentPlaylistIndex = 0;
+        private int currentRecentlyIndex = 0;
         private bool isSuffle = false;
         private static Random rng = new Random();
+        private string recentlyPlayed = "";
 
         class MediaFile : INotifyPropertyChanged
         {
             public event PropertyChangedEventHandler? PropertyChanged;
 
             public string Name { get; set; }
-            //public string Length { get; set; }
             public string Path { get; set; }
         }
 
         private List<string> _fileAddedList = new List<string>();
         ObservableCollection<MediaFile> mediaFiles = new ObservableCollection<MediaFile>();
+        List<MediaFile> recentlyPlayedFiles = new List<MediaFile>();
 
         public MainWindow()
         {
@@ -77,6 +79,7 @@ namespace MediaPlayer
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
+            // Load playlist
             string? playlist = ConfigurationManager.AppSettings["Playlist"];
             if (playlist != null && playlist != "")
             {
@@ -88,9 +91,27 @@ namespace MediaPlayer
                     media.Name = info[0];
                     media.Path = info[1];
                     mediaFiles.Add(media);
+
+                    _fileAddedList.Add(info[1]);
                 }
             }
 
+            // Load recently played files
+            string? recentlyFiles = ConfigurationManager.AppSettings["RecentlyPlayedFiles"];
+            if (recentlyFiles != null && recentlyFiles != "")
+            {
+                var files = recentlyFiles.Split("||", StringSplitOptions.None);
+                foreach (var file in files)
+                {
+                    MediaFile media = new MediaFile();
+                    var info = file.Split(",,", StringSplitOptions.None);
+                    media.Name = info[0];
+                    media.Path = info[1];
+                    recentlyPlayedFiles.Add(media);
+                }
+            }
+
+            recentlyListView.ItemsSource = recentlyPlayedFiles;
             playlistListView.ItemsSource = mediaFiles;
             if (mediaFiles.Count > 0)
             {
@@ -101,6 +122,15 @@ namespace MediaPlayer
 
                 playMedia(0);
             }
+        }
+
+        private void Window_Closed(object sender, EventArgs e)
+        {
+            recentlyPlayed = recentlyPlayed.Substring(0, recentlyPlayed.Length - 2);
+            var configFile = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+            var setttings = configFile.AppSettings.Settings;
+            setttings["RecentlyPlayedFiles"].Value = recentlyPlayed;
+            configFile.Save(ConfigurationSaveMode.Minimal);
         }
 
         private void Window_KeyDown(object sender, KeyEventArgs e)
@@ -119,20 +149,20 @@ namespace MediaPlayer
 
             if (e.Key == System.Windows.Input.Key.N)
             {
-                if (currentIndex >= mediaFiles.Count() - 1)
+                if (currentPlaylistIndex >= mediaFiles.Count() - 1)
                 {
                     return;
                 }
-                playMedia(currentIndex + 1);
+                playMedia(currentPlaylistIndex + 1);
             }
 
             if (e.Key == System.Windows.Input.Key.P)
             {
-                if (currentIndex <= 0)
+                if (currentPlaylistIndex <= 0)
                 {
                     return;
                 }
-                playMedia(currentIndex - 1);
+                playMedia(currentPlaylistIndex - 1);
             }
         }
 
@@ -167,7 +197,6 @@ namespace MediaPlayer
                         MediaFile file = new MediaFile()
                         {
                             Name = f.Tag.Title != null ? f.Tag.Title : filename,
-                            //Length = f.Tag.Length != null ? f.Tag.Length : "Unknown",
                             Path = path,
                         };
 
@@ -255,7 +284,6 @@ namespace MediaPlayer
                         MediaFile file = new MediaFile()
                         {
                             Name = f.Tag.Title != null ? f.Tag.Title : filename,
-                            //Length = f.Tag.Length != null ? f.Tag.Length : "Unknown",
                             Path = path,
                         };
 
@@ -309,6 +337,22 @@ namespace MediaPlayer
             playMedia(id);
         }
 
+        private void recentlyListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            if (recentlyListView.Items.Count == 0)
+            {
+                return;
+            }
+            int id = recentlyListView.SelectedIndex;
+
+            int lastIndex = recentlyPlayedFiles[id].Name.LastIndexOf('.');
+            string name = recentlyPlayedFiles[id].Name.Substring(0, lastIndex);
+            fileName.Text = name;
+            mediaName.Text = name;
+
+            playMedia(id);
+        }
+
         private void ButtonPlay_Click(object sender, RoutedEventArgs e)
         {
             MediaPlayerEl?.Play();
@@ -321,12 +365,12 @@ namespace MediaPlayer
 
         private void ButtonPrev_Click(object sender, RoutedEventArgs e)
         {
-            playMedia(currentIndex - 1);
+            playMedia(currentPlaylistIndex - 1);
         }
 
         private void ButtonNext_Click(object sender, RoutedEventArgs e)
         {
-            playMedia(currentIndex + 1);
+            playMedia(currentPlaylistIndex + 1);
         }
 
         private void slider_volume_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
@@ -388,15 +432,31 @@ namespace MediaPlayer
 
         void playMedia(int id)
         {
-            MediaPlayerEl.Source = new Uri(mediaFiles[id].Path, UriKind.Relative);
-            MediaPlayerEl.LoadedBehavior = MediaState.Manual;
-            MediaPlayerEl.UnloadedBehavior = MediaState.Manual;
-            MediaPlayerEl.Volume = (double)Slider_Volume.Value / 100;
-            MediaPlayerEl.Play();
+            if(playlistTabItem.IsSelected)
+            {
+                MediaPlayerEl.Source = new Uri(mediaFiles[id].Path, UriKind.Relative);
+                MediaPlayerEl.LoadedBehavior = MediaState.Manual;
+                MediaPlayerEl.UnloadedBehavior = MediaState.Manual;
+                MediaPlayerEl.Volume = (double)Slider_Volume.Value / 100;
+                MediaPlayerEl.Play();
 
-            currentIndex = id;
-            playlistListView.SelectedIndex = currentIndex;
-            setButtonState();
+                currentPlaylistIndex = id;
+                playlistListView.SelectedIndex = currentPlaylistIndex;
+                setButtonState();
+
+                recentlyPlayed += $"{mediaFiles[id].Name},,{mediaFiles[id].Path}||";
+            } else if(recentlyTabItem.IsSelected)
+            {
+                MediaPlayerEl.Source = new Uri(recentlyPlayedFiles[id].Path, UriKind.Relative);
+                MediaPlayerEl.LoadedBehavior = MediaState.Manual;
+                MediaPlayerEl.UnloadedBehavior = MediaState.Manual;
+                MediaPlayerEl.Volume = (double)Slider_Volume.Value / 100;
+                MediaPlayerEl.Play();
+
+                currentRecentlyIndex = id;
+                recentlyListView.SelectedIndex = currentRecentlyIndex;
+                setButtonState();
+            }
         }
 
         void setButtonState()
@@ -410,7 +470,7 @@ namespace MediaPlayer
                 playButton.IsEnabled = true;
             }
 
-            if (currentIndex <= 0)
+            if (currentPlaylistIndex <= 0)
             {
                 prevButton.IsEnabled = false;
             }
@@ -419,7 +479,7 @@ namespace MediaPlayer
                 prevButton.IsEnabled = true;
             }
 
-            if (currentIndex >= mediaFiles.Count() - 1)
+            if (currentPlaylistIndex >= mediaFiles.Count() - 1)
             {
                 nextButton.IsEnabled = false;
             }
@@ -431,12 +491,12 @@ namespace MediaPlayer
 
         private void media_MediaEnded(object sender, RoutedEventArgs e)
         {
-            if (currentIndex >= mediaFiles.Count() - 1)
+            if (currentPlaylistIndex >= mediaFiles.Count() - 1)
             {
                 return;
             }
 
-            playMedia(currentIndex + 1);
+            playMedia(currentPlaylistIndex + 1);
         }
 
         private void ButtonSuffle_Click(object sender, RoutedEventArgs e)
@@ -454,7 +514,7 @@ namespace MediaPlayer
                 suffleIcon.Source = new BitmapImage(uriSource);
                 playlistListView.ItemsSource = mediaFiles.OrderBy(a => rng.Next()).ToList();
             }
-            currentIndex = playlistListView.SelectedIndex;
+            currentPlaylistIndex = playlistListView.SelectedIndex;
             setButtonState();
         }
     }

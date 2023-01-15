@@ -16,7 +16,7 @@
                     <ControlTemplate TargetType="Button">
                         <Border
                             Margin="0,0,8,8"
-                            Padding="14, 8"
+                            Padding="14,8"
                             Background="{TemplateBinding Background}"
                             BorderThickness="0"
                             CornerRadius="6"
@@ -356,7 +356,7 @@
                 <Setter.Value>
                     <ControlTemplate TargetType="RepeatButton">
                         <Border
-                            Height="3"
+                            Height="4"
                             Background="#3b82f6"
                             BorderBrush="#3b82f6"
                             BorderThickness="1"
@@ -373,8 +373,8 @@
                 <Setter.Value>
                     <ControlTemplate TargetType="Thumb">
                         <Ellipse
-                            Width="10"
-                            Height="10"
+                            Width="12"
+                            Height="12"
                             Fill="#3b82f6" />
                     </ControlTemplate>
                 </Setter.Value>

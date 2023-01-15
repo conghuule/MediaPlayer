@@ -9,6 +9,7 @@
     Width="1200"
     Height="800"
     AllowDrop="True"
+    Closed="Window_Closed"
     Drop="Window_Drop"
     KeyDown="Window_KeyDown"
     Loaded="Window_Loaded"
@@ -223,35 +224,48 @@
                         CornerRadius="8">
 
                         <Grid Grid.Column="1">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="auto" />
-                                <RowDefinition Height="*" />
-                            </Grid.RowDefinitions>
-
-                            <StackPanel>
-                                <TextBlock
-                                    Grid.Row="0"
-                                    Grid.ColumnSpan="2"
-                                    Margin="0,0,0,16"
-                                    FontSize="28"
-                                    FontWeight="Bold"
-                                    Foreground="#cfcfcf"
-                                    Text="Playlist" />
-
-                            </StackPanel>
-
-                            <ListView
-                                Name="playlistListView"
-                                Grid.Row="1"
-                                MouseDoubleClick="playlistListView_MouseDoubleClick">
-                                <ListView.ItemTemplate>
-                                    <DataTemplate>
-                                        <Border>
-                                            <TextBlock Padding="4,16" Text="{Binding Name}" />
-                                        </Border>
-                                    </DataTemplate>
-                                </ListView.ItemTemplate>
-                            </ListView>
+                            <TabControl>
+                                <TabItem Name="playlistTabItem">
+                                    <TabItem.Header>
+                                        <TextBlock
+                                            Padding="8,0"
+                                            Cursor="Hand"
+                                            FontSize="20"
+                                            FontWeight="Bold"
+                                            Foreground="#737373"
+                                            Text="Playlist" />
+                                    </TabItem.Header>
+                                    <ListView Name="playlistListView" MouseDoubleClick="playlistListView_MouseDoubleClick">
+                                        <ListView.ItemTemplate>
+                                            <DataTemplate>
+                                                <Border>
+                                                    <TextBlock Padding="4,16" Text="{Binding Name}" />
+                                                </Border>
+                                            </DataTemplate>
+                                        </ListView.ItemTemplate>
+                                    </ListView>
+                                </TabItem>
+                                <TabItem Name="recentlyTabItem">
+                                    <TabItem.Header>
+                                        <TextBlock
+                                            Padding="8,0"
+                                            Cursor="Hand"
+                                            FontSize="20"
+                                            FontWeight="Bold"
+                                            Foreground="#737373"
+                                            Text="Recently" />
+                                    </TabItem.Header>
+                                    <ListView Name="recentlyListView" MouseDoubleClick="recentlyListView_MouseDoubleClick">
+                                        <ListView.ItemTemplate>
+                                            <DataTemplate>
+                                                <Border>
+                                                    <TextBlock Padding="4,16" Text="{Binding Name}" />
+                                                </Border>
+                                            </DataTemplate>
+                                        </ListView.ItemTemplate>
+                                    </ListView>
+                                </TabItem>
+                            </TabControl>
                         </Grid>
                     </Border>
                 </Grid>
