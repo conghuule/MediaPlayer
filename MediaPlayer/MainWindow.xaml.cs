@@ -63,6 +63,8 @@ namespace MediaPlayer
             void timer_Tick(object sender, EventArgs e)
             {
                 Slider_Seek.Value = MediaPlayerEl.Position.TotalSeconds;
+                currentTime.Text = formatTime(MediaPlayerEl.Position.TotalSeconds);
+
                 if (IsPlaying())
                 {
                     playButton.Visibility = Visibility.Collapsed;
@@ -330,7 +332,16 @@ namespace MediaPlayer
             int id = playlistListView.SelectedIndex;
 
             int lastIndex = mediaFiles[id].Name.LastIndexOf('.');
-            string name = mediaFiles[id].Name.Substring(0, lastIndex);
+            string name;
+            if (lastIndex != -1)
+            {
+                name = mediaFiles[id].Name.Substring(0, lastIndex);
+            }
+            else
+            {
+                name = mediaFiles[id].Name;
+            }
+
             fileName.Text = name;
             mediaName.Text = name;
 
@@ -345,8 +356,16 @@ namespace MediaPlayer
             }
             int id = recentlyListView.SelectedIndex;
 
-            int lastIndex = recentlyPlayedFiles[id].Name.LastIndexOf('.');
-            string name = recentlyPlayedFiles[id].Name.Substring(0, lastIndex);
+            int lastIndex = mediaFiles[id].Name.LastIndexOf('.');
+            string name;
+            if (lastIndex != -1)
+            {
+                name = mediaFiles[id].Name.Substring(0, lastIndex);
+            }
+            else
+            {
+                name = mediaFiles[id].Name;
+            }
             fileName.Text = name;
             mediaName.Text = name;
 
@@ -418,6 +437,7 @@ namespace MediaPlayer
         {
             TimeSpan ts = MediaPlayerEl.NaturalDuration.TimeSpan;
             Slider_Seek.Maximum = ts.TotalSeconds;
+            totalTime.Text = formatTime(ts.TotalSeconds);
             timer.Start();
         }
 
@@ -516,6 +536,19 @@ namespace MediaPlayer
             }
             currentPlaylistIndex = playlistListView.SelectedIndex;
             setButtonState();
+        }
+
+        private void slider_seek_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            MediaPlayerEl.Position = TimeSpan.FromSeconds(Slider_Seek.Value);
+        }
+
+        private string formatTime(double totalSeconds)
+        {
+            int minutes = (int)(totalSeconds / 60);
+            int seconds = (int)(totalSeconds % 60);
+
+            return $"{minutes}:{seconds}";
         }
     }
 } 

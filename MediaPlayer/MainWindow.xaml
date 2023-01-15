@@ -38,6 +38,7 @@
                         Minimum="0"
                         Style="{StaticResource Horizontal_Slider}"
                         ValueChanged="slider_volume_ValueChanged"
+                        IsMoveToPointEnabled ="True"
                         Value="0" />
                     <Image
                         Width="20"
@@ -119,7 +120,7 @@
                         </Button>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock Margin="0,0,10,0" Text="0:10" />
+                        <TextBlock Name="currentTime" Margin="0,0,10,0" Text="0:10" />
                         <Slider
                             Name="Slider_Seek"
                             Width="600"
@@ -127,11 +128,13 @@
                             Margin="8,0"
                             Maximum="100"
                             Minimum="0"
+                            IsMoveToPointEnabled ="True"
                             Style="{StaticResource Horizontal_Slider}"
                             Thumb.DragCompleted="seekBar_DragCompleted"
                             Thumb.DragStarted="seekBar_DragStarted"
+                            ValueChanged="slider_seek_ValueChanged"
                             Value="0" />
-                        <TextBlock Margin="10,0,0,0" Text="0:10" />
+                        <TextBlock Name="totalTime" Margin="10,0,0,0" Text="0:10" />
                     </StackPanel>
                 </StackPanel>
             </DockPanel>
