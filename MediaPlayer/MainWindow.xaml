@@ -120,12 +120,11 @@
                         </Button>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock Name="currentTime" Margin="0,0,10,0" Text="0:10" />
+                        <TextBlock Name="currentTime" Margin="0,0,10,0" Text="0:0"/>
                         <Slider
-                            Name="Slider_Seek"
+                            x:Name="Slider_Seek"
                             Width="600"
-                            Height="18"
-                            Margin="8,0"
+                            Height="28"
                             Maximum="100"
                             Minimum="0"
                             IsMoveToPointEnabled ="True"
@@ -134,7 +133,7 @@
                             Thumb.DragStarted="seekBar_DragStarted"
                             ValueChanged="slider_seek_ValueChanged"
                             Value="0" />
-                        <TextBlock Name="totalTime" Margin="10,0,0,0" Text="0:10" />
+                        <TextBlock Name="totalTime" Margin="10,0,0,0" Text="0:0"/>
                     </StackPanel>
                 </StackPanel>
             </DockPanel>

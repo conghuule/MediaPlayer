@@ -406,6 +406,8 @@ namespace MediaPlayer
             {
                 Slider_Seek.Value = MediaPlayerEl.Position.TotalSeconds;
             }
+            currentTime.Text = MediaPlayerEl.Position.ToString();
+            totalTime.Text = MediaPlayerEl.Position.CompareTo(currentTime).ToString();
         }
 
         private void seekBar_DragStarted(object sender, DragStartedEventArgs e)
