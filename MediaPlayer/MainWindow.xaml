@@ -120,7 +120,7 @@
                         </Button>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock Name="currentTime" Margin="0,0,10,0" Text="0:0"/>
+                        <TextBlock Name="currentTime" Margin="0,0,10,0" Text="0:0" FontWeight="Bold"/>
                         <Slider
                             x:Name="Slider_Seek"
                             Width="600"
@@ -134,7 +134,7 @@
                             Thumb.DragStarted="seekBar_DragStarted"
                             ValueChanged="slider_seek_ValueChanged"
                             Value="0" />
-                        <TextBlock Name="totalTime" Margin="10,0,0,0" Text="0:0"/>
+                        <TextBlock Name="totalTime" Margin="10,0,0,0" Text="0:0" FontWeight="Bold"/>
                     </StackPanel>
                 </StackPanel>
             </DockPanel>
