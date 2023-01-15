@@ -126,6 +126,7 @@
                             Width="600"
                             Height="28"
                             Maximum="100"
+                            Margin="8,0"
                             Minimum="0"
                             IsMoveToPointEnabled ="True"
                             Style="{StaticResource Horizontal_Slider}"
