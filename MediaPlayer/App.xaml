@@ -340,7 +340,7 @@
                 <Setter.Value>
                     <ControlTemplate TargetType="RepeatButton">
                         <Border
-                            Height="3"
+                            Height="4"
                             Background="LightGray"
                             BorderBrush="LightGray"
                             BorderThickness="1" />

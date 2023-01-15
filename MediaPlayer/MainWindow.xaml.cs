@@ -552,10 +552,11 @@ namespace MediaPlayer
 
         private string formatTime(double totalSeconds)
         {
-            int minutes = (int)(totalSeconds / 60);
+            int hours = (int)(totalSeconds / 3600);
+            int minutes = (int)((totalSeconds - hours * 3600) / 60);
             int seconds = (int)(totalSeconds % 60);
 
-            return $"{minutes}:{seconds}";
+            return $"{hours}:{minutes}:{seconds}";
         }
     }
 } 
