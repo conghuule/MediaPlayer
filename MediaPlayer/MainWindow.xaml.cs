@@ -540,7 +540,12 @@ namespace MediaPlayer
 
         private void slider_seek_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
-            MediaPlayerEl.Position = TimeSpan.FromSeconds(Slider_Seek.Value);
+            isDragging = true;
+            if (true)
+            {
+                isDragging = false;
+                MediaPlayerEl.Position = TimeSpan.FromSeconds(Slider_Seek.Value);
+            }
         }
 
         private string formatTime(double totalSeconds)
