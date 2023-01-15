@@ -21,6 +21,7 @@ using System.Collections.ObjectModel;
 using System.Windows.Threading;
 using MediaPlayer.Models;
 using System.Configuration;
+using System.Windows.Controls.Primitives;
 
 namespace MediaPlayer
 {
@@ -292,10 +293,32 @@ namespace MediaPlayer
             MediaPlayerEl.Volume = (double)Slider_Volume.Value / 100;
         }
 
-        private void slider_seek_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        //----Seeking-----
+        bool isDragging = false;
+
+        void timer_Tick(object sender, EventArgs e)
         {
+            if(!isDragging)
+            {
+                Slider_Seek.Value = MediaPlayerEl.Position.TotalSeconds;
+            }
+        }
+
+        private void seekBar_DragStarted(object sender, DragStartedEventArgs e)
+        {
+            isDragging = true;
+        }
+
+        private void seekBar_DragCompleted(object sender, DragCompletedEventArgs e)
+        {
+            isDragging = false;
             MediaPlayerEl.Position = TimeSpan.FromSeconds(Slider_Seek.Value);
         }
+        //----Seeking-----
+        /*private void slider_seek_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            MediaPlayerEl.Position = TimeSpan.FromSeconds(Slider_Seek.Value);
+        }*/
         private void Window_Drop(object sender, DragEventArgs e)
         {
             string fileName = (string)((DataObject)e.Data).GetFileDropList()[0];
