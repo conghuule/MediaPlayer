@@ -77,9 +77,6 @@ namespace MediaPlayer
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            playlistListView.ItemsSource = mediaFiles;
-
-
             string? playlist = ConfigurationManager.AppSettings["Playlist"];
             if (playlist != null && playlist != "")
             {
@@ -92,6 +89,50 @@ namespace MediaPlayer
                     media.Path = info[1];
                     mediaFiles.Add(media);
                 }
+            }
+
+            playlistListView.ItemsSource = mediaFiles;
+            if (mediaFiles.Count > 0)
+            {
+                int lastIndex = mediaFiles[0].Name.LastIndexOf('.');
+                string name = mediaFiles[0].Name.Substring(0, lastIndex);
+                fileName.Text = name;
+                mediaName.Text = name;
+
+                playMedia(0);
+            }
+        }
+
+        private void Window_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == System.Windows.Input.Key.Space)
+            {
+                if (IsPlaying())
+                {
+                    MediaPlayerEl?.Pause();
+                }
+                else
+                {
+                    MediaPlayerEl.Play();
+                }
+            }
+
+            if (e.Key == System.Windows.Input.Key.N)
+            {
+                if (currentIndex >= mediaFiles.Count() - 1)
+                {
+                    return;
+                }
+                playMedia(currentIndex + 1);
+            }
+
+            if (e.Key == System.Windows.Input.Key.P)
+            {
+                if (currentIndex <= 0)
+                {
+                    return;
+                }
+                playMedia(currentIndex - 1);
             }
         }
 

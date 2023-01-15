@@ -10,8 +10,9 @@
     Height="800"
     AllowDrop="True"
     Drop="Window_Drop"
-    mc:Ignorable="d"
-    Loaded="Window_Loaded">
+    KeyDown="Window_KeyDown"
+    Loaded="Window_Loaded"
+    mc:Ignorable="d">
     <Border Padding="20" Background="#c89666">
         <DockPanel LastChildFill="True">
             <!--  Controls  -->
@@ -126,8 +127,8 @@
                             Maximum="100"
                             Minimum="0"
                             Style="{StaticResource Horizontal_Slider}"
-                            Thumb.DragStarted="seekBar_DragStarted"
                             Thumb.DragCompleted="seekBar_DragCompleted"
+                            Thumb.DragStarted="seekBar_DragStarted"
                             Value="0" />
                         <TextBlock Margin="10,0,0,0" Text="0:10" />
                     </StackPanel>
