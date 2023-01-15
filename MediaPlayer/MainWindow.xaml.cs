@@ -1,4 +1,4 @@
-﻿using Microsoft.Win32;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -417,8 +417,8 @@ namespace MediaPlayer
 
         private void seekBar_DragCompleted(object sender, DragCompletedEventArgs e)
         {
-            isDragging = false;
-            MediaPlayerEl.Position = TimeSpan.FromSeconds(Slider_Seek.Value);
+                isDragging = false;
+                MediaPlayerEl.Position = TimeSpan.FromSeconds(Slider_Seek.Value);
         }
         //----Seeking-----
         /*private void slider_seek_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
@@ -542,10 +542,8 @@ namespace MediaPlayer
 
         private void slider_seek_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
-            isDragging = true;
-            if (true)
+            if (isDragging == false)
             {
-                isDragging = false;
                 MediaPlayerEl.Position = TimeSpan.FromSeconds(Slider_Seek.Value);
             }
         }
